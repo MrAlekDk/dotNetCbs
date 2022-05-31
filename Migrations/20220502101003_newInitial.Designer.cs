@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using cbsStudents.Data;
 
@@ -10,9 +11,10 @@ using cbsStudents.Data;
 namespace cbsStudents.Migrations
 {
     [DbContext(typeof(CbsStudentsContext))]
-    partial class CbsStudentsContextModelSnapshot : ModelSnapshot
+    [Migration("20220502101003_newInitial")]
+    partial class newInitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
@@ -163,7 +165,7 @@ namespace cbsStudents.Migrations
                         {
                             CommentId = 1,
                             Author = "Alek",
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(5544),
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(8477),
                             Likes = 10,
                             PostId = 1,
                             Text = "This is post 1"
@@ -172,7 +174,7 @@ namespace cbsStudents.Migrations
                         {
                             CommentId = 2,
                             Author = "M",
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(5548),
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(8482),
                             Likes = 5,
                             PostId = 2,
                             Text = "This is post 2"
@@ -181,7 +183,7 @@ namespace cbsStudents.Migrations
                         {
                             CommentId = 3,
                             Author = "Peter",
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(5551),
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(8484),
                             Likes = 1,
                             PostId = 3,
                             Text = "This is post 3"
@@ -257,7 +259,7 @@ namespace cbsStudents.Migrations
                         new
                         {
                             PostId = 1,
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(5368),
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(8308),
                             MyProperty = 0,
                             Status = 0,
                             Text = "This is post 1",
@@ -266,7 +268,7 @@ namespace cbsStudents.Migrations
                         new
                         {
                             PostId = 2,
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(5413),
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(8347),
                             MyProperty = 0,
                             Status = 0,
                             Text = "This is post 2",
@@ -275,7 +277,7 @@ namespace cbsStudents.Migrations
                         new
                         {
                             PostId = 3,
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(5416),
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(8351),
                             MyProperty = 0,
                             Status = 0,
                             Text = "This is post 3",
@@ -319,8 +321,7 @@ namespace cbsStudents.Migrations
                         {
                             VolunteerId = 1,
                             Age = 23,
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(6563),
-                            GroupId = 1,
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(9614),
                             Name = "Alexander",
                             Status = 2,
                             StudyProgramme = "Datamatiker"
@@ -329,8 +330,7 @@ namespace cbsStudents.Migrations
                         {
                             VolunteerId = 2,
                             Age = 18,
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(6576),
-                            GroupId = 3,
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(9627),
                             Name = "Anne",
                             Status = 0,
                             StudyProgramme = "Datalogi"
@@ -339,8 +339,7 @@ namespace cbsStudents.Migrations
                         {
                             VolunteerId = 3,
                             Age = 70,
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(6578),
-                            GroupId = 2,
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(9629),
                             Name = "Kjeld",
                             Status = 1,
                             StudyProgramme = "Software-Engineer"
@@ -349,8 +348,7 @@ namespace cbsStudents.Migrations
                         {
                             VolunteerId = 4,
                             Age = 45,
-                            CreatedDate = new DateTime(2022, 5, 2, 12, 12, 1, 249, DateTimeKind.Local).AddTicks(6580),
-                            GroupId = 1,
+                            CreatedDate = new DateTime(2022, 5, 2, 12, 10, 3, 481, DateTimeKind.Local).AddTicks(9631),
                             Name = "Hanne",
                             Status = 2,
                             StudyProgramme = "Datamatiker"

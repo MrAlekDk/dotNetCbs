@@ -5,39 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using students.Models.Entities;
-
 using cbsStudents.Data;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using students.Models.Entities;
 
 namespace cbsStudents.Controllers
 {
-  //[Authorize]
-    public class PostsController : Controller
+    public class GroupController : Controller
     {
         private readonly CbsStudentsContext _context;
-     
-        public PostsController(CbsStudentsContext context, UserManager<IdentityUser> userManager)
+
+        public GroupController(CbsStudentsContext context)
         {
-            this._context = context;
-            this._userManager = userManager;
+            _context = context;
         }
 
-        // GET: Posts
-        [AllowAnonymous]
+        // GET: Group
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            return View(await _context.Group.ToListAsync());
         }
 
-         [AllowAnonymous]
-        public async Task<IActionResult> PostForm()
-        {
-            return View();
-        }
-
-        // GET: Posts/Details/5
+        // GET: Group/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,42 +33,39 @@ namespace cbsStudents.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (post == null)
+            var @group = await _context.Group
+                .FirstOrDefaultAsync(m => m.GroupId == id);
+            if (@group == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(@group);
         }
 
-        // GET: Posts/Create
+        // GET: Group/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Posts/Create
+        // POST: Group/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text,CreatedDate,MyProperty,Status")] Post post)
+        public async Task<IActionResult> Create([Bind("GroupId,Name")] Group @group)
         {
-            IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-            post.UserId = user.Id;
-            
             if (ModelState.IsValid)
             {
-                _context.Posts.Add(post);
+                _context.Add(@group);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            return View(@group);
         }
 
-        // GET: Posts/Edit/5
+        // GET: Group/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,22 +73,22 @@ namespace cbsStudents.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts.FindAsync(id);
-            if (post == null)
+            var @group = await _context.Group.FindAsync(id);
+            if (@group == null)
             {
                 return NotFound();
             }
-            return View(post);
+            return View(@group);
         }
 
-        // POST: Posts/Edit/5
+        // POST: Group/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,CreatedDate,MyProperty,Status")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("GroupId,Name")] Group @group)
         {
-            if (id != post.PostId)
+            if (id != @group.GroupId)
             {
                 return NotFound();
             }
@@ -112,12 +97,12 @@ namespace cbsStudents.Controllers
             {
                 try
                 {
-                    _context.Update(post);
+                    _context.Update(@group);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PostExists(post.PostId))
+                    if (!GroupExists(@group.GroupId))
                     {
                         return NotFound();
                     }
@@ -128,10 +113,10 @@ namespace cbsStudents.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            return View(@group);
         }
 
-        // GET: Posts/Delete/5
+        // GET: Group/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,32 +124,30 @@ namespace cbsStudents.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (post == null)
+            var @group = await _context.Group
+                .FirstOrDefaultAsync(m => m.GroupId == id);
+            if (@group == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(@group);
         }
 
-        // POST: Posts/Delete/5
+        // POST: Group/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var post = await _context.Posts.FindAsync(id);
-            _context.Posts.Remove(post);
+            var @group = await _context.Group.FindAsync(id);
+            _context.Group.Remove(@group);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PostExists(int id)
+        private bool GroupExists(int id)
         {
-            return _context.Posts.Any(e => e.PostId == id);
+            return _context.Group.Any(e => e.GroupId == id);
         }
-
-        private readonly UserManager<IdentityUser> _userManager;
     }
 }

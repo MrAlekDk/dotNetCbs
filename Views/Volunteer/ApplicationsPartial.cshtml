@@ -1,0 +1,63 @@
+@using students.Models.Entities
+@model IEnumerable<students.Models.Entities.Volunteer>
+
+<div class="container border shadow m-3">
+    <table class="table table-borderless table-hover align-items-start">
+        <p class="h4" style="font-weight: bold">Volunteer applications</p>
+        <thead>
+            <tr>
+                <th class="col-1">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th class="col-1">
+                    @Html.DisplayNameFor(model => model.Age)
+                </th>
+                <th class="col-2">
+                    @Html.DisplayNameFor(model => model.StudyProgramme)
+                </th>
+                <th class="col-1">
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th class="col-1">
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th class="col-1">
+                    @Html.DisplayNameFor(model => model.Group)
+                </th>
+                <th class="col-1"></th>
+                <th class="col-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+        @if(item.Status == VolunteerStatus.PENDING){
+    <tr>
+                <td class="col-2">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="col-1">
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td class="col-2">
+                    @Html.DisplayFor(modelItem => item.StudyProgramme)
+                </td>
+                <td class="col-1">
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td class="col-1">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td class="col-1">
+                    @Html.DisplayFor(modelItem => item.Group.Name)
+                </td>
+                <td class="col-1"></td>
+                <td class="col-2">
+                    <a asp-action="DeclineApplication" asp-route-id="@item.VolunteerId" class="btn btn-light" style="border: solid 1px black" role="button">Decline</a>
+                    <a asp-action="AcceptApplication" asp-route-id="@item.VolunteerId" class="btn btn-primary" style="background-color:#3c3c80" role="button">Accept</a>
+                </td>
+            </tr>
+        }
+    }
+        </tbody>
+    </table>
+</div>
