@@ -1,5 +1,5 @@
-@using students.Models.Entities
-@model IEnumerable<students.Models.Entities.Volunteer>
+@using students.Models.Entities;
+@model students.Models.Entities.VolunteerGroupIndexVm;
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -19,28 +19,28 @@
             <thead>
             <tr>
                 <th class="col-2">
-                    @Html.DisplayNameFor(model => model.Name)
+                    Name
                 </th>
                 <th class="col-1">
-                    @Html.DisplayNameFor(model => model.Age)
+                    Age
                 </th>
                 <th class="col-2">
-                    @Html.DisplayNameFor(model => model.StudyProgramme)
+                   Study program
                 </th>
                 <th class="col-1">
-                    @Html.DisplayNameFor(model => model.CreatedDate)
+                    Volunteer since
                 </th>
                 <th class="col-1">
-                    @Html.DisplayNameFor(model => model.Status)
+                    Status
                 </th>
                 <th class="col-1">
-                    @Html.DisplayNameFor(model => model.Group)
+                    Group
                 </th>
                 <th class="col-2"></th>
             </tr>
         </thead>
         <tbody id="tbody">
-    @foreach (var item in Model) {
+    @foreach (var item in Model.Volunteers) {
         @if(item.Status == VolunteerStatus.ACCEPTED){
             <tr id="row">
                 <div class="card">
@@ -74,9 +74,42 @@
     </table>
 </div>
 
+<div id="table" class="container border shadow m-3">
+    <table class="table table-borderless table-hover align-items-start">
+            <p class="h4" style="font-weight: bold">Groups</p>
+            <thead>
+            <tr>
+                <th class="col-2">
+                    Name
+                </th>
+                <th class="col-1">
+                    Number of members
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+    @foreach (var item in Model.Groups) {
+            <tr id="row">
+                <div class="card">
+                <td class="col-2">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="col-2">
+                    length here
+                </td>
+                <td class="col-2"></td>
+                <td class="col-1"></td>
+                <td><a class="btn btn-primary" style="background-color:#3c3c80" role="button">Info</a></td>
+                </div>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+
 <div class="container border shadow m-3">
     <table class="table table-borderless table-hover align-items-start">
-        <p class="h4" style="font-weight: bold">Groups</p>
+        <p class="h4" style="font-weight: bold">Groups with API</p>
         <thead>
             <tr>
                 <th class="col-6">Group Name</th>

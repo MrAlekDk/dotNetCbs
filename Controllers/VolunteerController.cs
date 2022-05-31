@@ -23,7 +23,17 @@ namespace cbsStudents.Controllers
         public async Task<IActionResult> Index()
         {
             var cbsStudentsContext = _context.Volunteer.Include(v => v.Group);
-            return View(await cbsStudentsContext.ToListAsync());
+
+            var volunteers = from p in _context.Volunteer select p;
+            var groups = from p in _context.Group select p;
+            var vm = new VolunteerGroupIndexVm
+            {
+                Volunteers = volunteers.ToList(),
+                Groups = groups.ToList()
+            };
+
+            return View(vm);
+            //return View(await cbsStudentsContext.ToListAsync());
         }
 
         // GET: Volunteer/Details/5
