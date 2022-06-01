@@ -82,9 +82,10 @@
                 <th class="col-2">
                     Name
                 </th>
+                <th class="col-2"></th>
+                <th class="col-2"></th>
                 <th class="col-1">
-                    Number of members
-                </th>
+                    Number of members</th>
             </tr>
         </thead>
         <tbody id="tbody">
@@ -94,12 +95,14 @@
                 <td class="col-2">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
+                <td class="col-2"></td>
+                <td class="col-2"></td>
                 <td class="col-2">
-                    length here
+                    @Html.DisplayFor(modelItem => item.Volunteers.FindAll(volunteer => volunteer.Status == VolunteerStatus.ACCEPTED).Count)
                 </td>
                 <td class="col-2"></td>
                 <td class="col-1"></td>
-                <td><a class="btn btn-primary" style="background-color:#3c3c80" role="button">Info</a></td>
+                <td class="col-1"><a class="btn btn-primary" style="background-color:#3c3c80" role="button">Info</a></td>
                 </div>
             </tr>
     }
@@ -141,10 +144,9 @@
 let getGroups = async()=>{
  const res = await fetch("https://localhost:7151/api/GroupApi")
  const data = await res.json()
- console.log(data)
+
  let tableBody = document.getElementById("group-table")
  data.map(group =>{
-    console.log(group)
     let row = tableBody.insertRow(0)
     row.insertCell(0).innerHTML = group.name
     row.insertCell(1).innerHTML = group.volunteers.length
@@ -164,7 +166,6 @@ async function handleTableClick(evt){
     const res = await fetch("https://localhost:7151/Volunteer/Details/"+id)
     const data = await res.text()
 
-    console.log(data)
     document.getElementById("modal-table").innerHTML = data
 }
 function setupHandlers(){

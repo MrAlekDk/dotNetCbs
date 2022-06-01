@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using cbsStudents.Data;
 using students.Models.Entities;
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+
 namespace cbsStudents.Controllers
 {
     public class VolunteerController : Controller
@@ -164,6 +167,7 @@ namespace cbsStudents.Controllers
         }
 
         //[HttpPost, ActionName("AcceptApplication")]
+        [Authorize]
         public async Task<IActionResult> AcceptApplication(int? id)
         {
             if (id == null)
@@ -193,6 +197,7 @@ namespace cbsStudents.Controllers
 
        // [HttpPost, ActionName("DeclineApplication")]
        // [ValidateAntiForgeryToken]
+       [Authorize]
         public async Task<IActionResult> DeclineApplication(int? id)
         {
            if (id == null)
