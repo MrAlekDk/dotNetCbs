@@ -6,4 +6,6 @@ public class VolunteerGroupIndexVm
 
     public IEnumerable<Group> Groups {get; set;}
 
+    public string testString {get; set;} = "Hello world!"; 
+
 }

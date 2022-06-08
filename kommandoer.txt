@@ -1,0 +1,3 @@
+Scaffold: dotnet-aspnet-codegenerator controller -name NameHereController -m Model -dc MvcModelContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -sqlite
+Ny migration: dotnet ef migrations add Navn
+Db update: dotnet ef database update 

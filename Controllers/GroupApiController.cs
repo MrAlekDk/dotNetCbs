@@ -25,35 +25,35 @@ namespace cbsStudents.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Group>>> GetGroup()
         {
-            //Include(t => t.Volunteers).
-            return await _context.Group.Include(t => t.Volunteers).ToListAsync();
+            //var groups = _context.Group.Include(t => t.Volunteers).OrderBy(p => p.Name);
+            var groups = from p in _context.Group.Include(t => t.Volunteers) orderby p.Name select p;
+            return (await groups.ToListAsync());
         }
 
         // GET: api/GroupApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> GetGroup(int id)
         {
-            var @group = await _context.Group.FindAsync(id);
-
-            if (@group == null)
+            var group = await _context.Group.FindAsync(id);
+            if (group == null)
             {
                 return NotFound();
             }
 
-            return @group;
+            return group;
         }
 
         // PUT: api/GroupApi/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroup(int id, Group @group)
+        public async Task<IActionResult> PutGroup(int id, Group group)
         {
-            if (id != @group.GroupId)
+            if (id != group.GroupId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@group).State = EntityState.Modified;
+            _context.Entry(group).State = EntityState.Modified;
 
             try
             {
@@ -89,8 +89,8 @@ namespace cbsStudents.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGroup(int id)
         {
-            var @group = await _context.Group.FindAsync(id);
-            if (@group == null)
+            var group = await _context.Group.FindAsync(id);
+            if (group == null)
             {
                 return NotFound();
             }

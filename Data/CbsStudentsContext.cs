@@ -31,12 +31,12 @@ namespace cbsStudents.Data
             this.SeedPosts(modelBuilder);
             this.SeedComments(modelBuilder);
 
-            /*modelBuilder.Entity<Volunteer>()
+            modelBuilder.Entity<Volunteer>()
             .HasOne(p => p.Group)
             .WithMany(b => b.Volunteers);
             this.SeedGroups(modelBuilder);
             this.SeedVolunteers(modelBuilder);
-*/
+
             modelBuilder.Ignore <IdentityUserLogin<string>>();
             modelBuilder.Ignore <IdentityUserRole<string>>();
             modelBuilder.Ignore<IdentityUserToken<string>>();

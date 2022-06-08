@@ -33,14 +33,15 @@ namespace cbsStudents.Controllers
                 return NotFound();
             }
 
-            var @group = await _context.Group
+            var group = await _context.Group
+                .Include(v => v.Volunteers)
                 .FirstOrDefaultAsync(m => m.GroupId == id);
-            if (@group == null)
+            if (group == null)
             {
                 return NotFound();
             }
 
-            return View(@group);
+           return PartialView("Details", group);
         }
 
         // GET: Group/Create

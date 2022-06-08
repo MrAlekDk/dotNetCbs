@@ -22,8 +22,8 @@ builder.Services.AddDbContext<CbsStudentsContext>(options =>
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<CbsStudentsContext>();builder.Services.AddDbContext<CbsStudentsContext>(options =>
     options.UseSqlServer("CbsStudentsContext"));
+    
 builder.Services.AddDbContext<CbsStudentsContext>(options =>
-
     options.UseSqlite(builder.Configuration.GetConnectionString("CbsStudentsContext")));
 
 // Add services to the container.

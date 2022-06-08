@@ -26,8 +26,9 @@ namespace cbsStudents.Controllers
         public async Task<IActionResult> Index()
         {
             var cbsStudentsContext = _context.Volunteer.Include(v => v.Group);
-
-            var volunteers = from p in _context.Volunteer select p;
+            var volunteers = from p in cbsStudentsContext select p;
+            //volunteers = volunteers.OrderBy(p => p.Age);
+            //var volunteers = from p in _context.Volunteer select p;
             var groups = from p in _context.Group select p;
             var vm = new VolunteerGroupIndexVm
             {
@@ -50,6 +51,7 @@ namespace cbsStudents.Controllers
             var volunteer = await _context.Volunteer
                 .Include(v => v.Group)
                 .FirstOrDefaultAsync(m => m.VolunteerId == id);
+
             if (volunteer == null)
             {
                 return NotFound();
@@ -57,6 +59,7 @@ namespace cbsStudents.Controllers
 
             return PartialView("Details", volunteer);
         }
+
 
         // GET: Volunteer/Create
         public IActionResult Create()
@@ -70,11 +73,12 @@ namespace cbsStudents.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VolunteerId,Name,Age,StudyProgramme,CreatedDate,Status,GroupId")] Volunteer volunteer)
+        public async Task<IActionResult> Create([Bind("VolunteerId,Name,Age,StudyProgramme,Status,GroupId")] Volunteer volunteer)
         {
             if (ModelState.IsValid)
             {
                 volunteer.Status = VolunteerStatus.PENDING;
+                volunteer.CreatedDate = DateTime.Now;
                 _context.Add(volunteer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -105,7 +109,7 @@ namespace cbsStudents.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VolunteerId,Name,Age,StudyProgramme,CreatedDate,Status,GroupId")] Volunteer volunteer)
+        public async Task<IActionResult> Edit(int id, [Bind("VolunteerId,Name,Age,StudyProgramme,Status,GroupId")] Volunteer volunteer)
         {
             if (id != volunteer.VolunteerId)
             {

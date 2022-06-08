@@ -8,10 +8,13 @@
 }
 
 <h1>Volunteers</h1>
+<h2>@Html.DisplayFor(model => model.testString)</h2>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 @await Html.PartialAsync("ApplicationsPartial", Model)
+
 
 <div id="table" class="container border shadow m-3">
     <table class="table table-borderless table-hover align-items-start">
@@ -64,7 +67,7 @@
                 </td>
                 <td class="col-2"></td>
                 <td class="col-1">
-                <a id=@item.VolunteerId class="btn btn-primary" style="background-color:#3c3c80" role="button" data-bs-toggle="modal" data-bs-target="#myModal">Info</a>
+                <a id=@item.VolunteerId class="btn btn-primary" style="background-color:#3c3c80" role="button" data-bs-toggle="modal" data-bs-target="#myModal" name="volunteer">Info</a>
                 </td>
                 </div>
             </tr>
@@ -88,7 +91,7 @@
                     Number of members</th>
             </tr>
         </thead>
-        <tbody id="tbody">
+        <tbody id="tbody-group">
     @foreach (var item in Model.Groups) {
             <tr id="row">
                 <div class="card">
@@ -102,7 +105,7 @@
                 </td>
                 <td class="col-2"></td>
                 <td class="col-1"></td>
-                <td class="col-1"><a class="btn btn-primary" style="background-color:#3c3c80" role="button">Info</a></td>
+                <td class="col-1"><a id=@item.GroupId class="btn btn-primary" style="background-color:#3c3c80" role="button" data-bs-toggle="modal" data-bs-target="#myModal" name="group">Info</a></td>
                 </div>
             </tr>
     }
@@ -129,10 +132,9 @@
     <div class="modal-dialog modal-lg">
 <div class="modal-content">
     <div class="modal-header">
-        <h4>Volunteer</h4>
+        <h4>Details:</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
         <div class="modal-body">
             <span id="modal-table"></span>
         </div>
@@ -163,13 +165,21 @@ async function handleTableClick(evt){
     const target = evt.target
     const id = target.id
 
-    const res = await fetch("https://localhost:7151/Volunteer/Details/"+id)
-    const data = await res.text()
-
+    let date =""
+    if(target.name === "volunteer"){
+        const res = await fetch("https://localhost:7151/Volunteer/Details/"+id)
+        data = await res.text()
+    }
+    else{
+        const res = await fetch("https://localhost:7151/Group/Details/"+id)
+        data = await res.text()
+    }
+    console.log(data)
     document.getElementById("modal-table").innerHTML = data
 }
 function setupHandlers(){
     document.getElementById("tbody").onclick = handleTableClick
+    document.getElementById("tbody-group").onclick = handleTableClick
 }
 setupHandlers()
 </script>

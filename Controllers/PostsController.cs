@@ -17,6 +17,7 @@ namespace cbsStudents.Controllers
     public class PostsController : Controller
     {
         private readonly CbsStudentsContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
      
         public PostsController(CbsStudentsContext context, UserManager<IdentityUser> userManager)
         {
@@ -165,6 +166,5 @@ namespace cbsStudents.Controllers
             return _context.Posts.Any(e => e.PostId == id);
         }
 
-        private readonly UserManager<IdentityUser> _userManager;
     }
 }
